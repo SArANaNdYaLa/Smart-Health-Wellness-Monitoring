@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #6a89cc, #b8e994);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333333;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            color: #333;
+        }
+
+        input:focus {
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0 0 5px rgba(102, 175, 233, 0.5);
+        }
+
+        button {
+            padding: 10px;
+            background-color: #45a049;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5198df;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            color: #5198df;
+        }
+
+
+        .error-message {
+            color: red;
+            font-size: 0.8em;
+            margin-top: 0px;
+        }
+
+        @media (max-width:480px) {
+            .container {
+                width: 100%;
+                padding: 20px;
+                margin: 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form action="{% url 'registration' %}" method="POST">
+            {% csrf_token %}
+            <h2>Registration</h2>
+
+            <label>User Name</label>
+            <input type="text" name="username" placeholder="Username" required>
+
+            <label>Email</label>
+            <input type="email" name="email" placeholder="Email" required>
+
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Password" required>
+            {% if errors.password_error %}
+            <div class="error-message">{{ errors.password_error }}</div>
+            {% endif %}
+
+            <label>Confirm Password</label>
+            <input type="password" name="cpassword" placeholder="Confirm Password" required>
+            {% if errors.cpassword_error %}
+            <div class="error-message">{{ errors.cpassword_error }}</div>
+            {% endif %}
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+
+</html>

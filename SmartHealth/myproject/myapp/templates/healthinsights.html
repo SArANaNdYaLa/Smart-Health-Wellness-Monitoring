@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Insights</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(#a8e6cf, #d0f5e3, #b4e7d3, #c8f5c1);
+            background-size: 100% 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+            display: block;
+        }
+
+        .form-container input,
+        .form-container button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container input[type="number"] {
+            width: calc(50% - 10px);
+            margin-right: 10px;
+        }
+
+        .form-container input[type="number"]:last-child {
+            margin-right: 0;
+        }
+
+        .form-container button {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .form-container button:hover {
+            background-color: #004d40;
+        }
+
+        .form-container input[type="number"]:focus,
+        .form-container button:focus {
+            outline: none;
+            border-color: #00796b;
+        }
+
+        .submitted {
+            margin-top: 40px;
+        }
+
+        /* Add styles for visualizations */
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .chart-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        .chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Alert Box Styles */
+        .alert-box {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #00796b;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-box h2 {
+            color: #00796b;
+            margin-bottom: 10px;
+        }
+
+        .alert-box ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .alert-box li {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+
+        /* Recommendations Box */
+        .recommendations {
+            margin-top: 30px;
+            text-align: left;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendations h2 {
+            color: #00796b;
+            font-size: 1.5rem;
+        }
+
+        .recommendations ul {
+            list-style-type: disc;
+            margin: 10px 0 0 20px;
+        }
+
+        .recommendations li {
+            margin: 5px 0;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Enter Your Health Data</h1>
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        {% if heart_rate %}
+        <div class="submitted">
+            <h2>Your Health Insights</h2>
+
+            <div class="chart-container">
+                <div class="chart">
+                    <h3>Heart Rate</h3>
+                    <img src="data:image/png;base64,{{ heart_rate_chart }}" alt="Heart Rate Chart">
+                </div>
+                <div class="chart">
+                    <h3>Sleep Duration</h3>
+                    <img src="data:image/png;base64,{{ sleep_chart }}" alt="Sleep Chart">
+                </div>
+                <div class="chart">
+                    <h3>Steps Taken</h3>
+                    <img src="data:image/png;base64,{{ steps_chart }}" alt="Steps Chart">
+                </div>
+                <div class="chart">
+                    <h3>Water Intake</h3>
+                    <img src="data:image/png;base64,{{ water_chart }}" alt="Water Intake Chart">
+                </div>
+            </div>
+
+            <!-- Display Alerts -->
+            {% if alerts %}
+            <div class="alert-box">
+                <h2>Goal Alerts</h2>
+                <ul>
+                    {% for alert in alerts %}
+                    <li>{{ alert }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Display Recommendations -->
+            <div class="recommendations">
+                <h2>Recommendations</h2>
+                <ul>
+                    {% for recommendation in recommendations %}
+                    <li>{{ recommendation }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

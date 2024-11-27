@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Your Health Goals</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(#a8e6cf, #d0f5e3, #b4e7d3, #c8f5c1);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .alert {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #00796b;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert h2 {
+            color: #00796b;
+            margin-bottom: 10px;
+        }
+
+        .alert ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .alert li {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+
+        .form-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container input,
+        .form-container button {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container button {
+            background-color: #00796b;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .form-container button:hover {
+            background-color: #004d40;
+        }
+
+        .goals-summary {
+            margin-top: 40px;
+        }
+
+        .goals-summary h2 {
+            color: #00796b;
+            text-align: center;
+        }
+
+        .goals-summary ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .goals-summary li {
+            font-size: 1.2rem;
+            padding: 10px;
+            background-color: #f4f4f4;
+            margin: 5px 0;
+            border-radius: 5px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Set Your Health Goals</h1>
+
+        {% if alerts %}
+        <div class="alert">
+            <h2>Goal Alerts</h2>
+            <ul>
+                {% for alert in alerts %}
+                <li>{{ alert }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save Goals</button>
+            </form>
+        </div>
+
+        <div class="goals-summary">
+            <h2>Your Current Goals</h2>
+            <ul>
+                <li>Steps Goal: {{ request.session.steps_goal }} steps</li>
+                <li>Sleep Goal: {{ request.session.sleep_goal }} hours</li>
+                <li>Water Goal: {{ request.session.water_goal }} liters</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

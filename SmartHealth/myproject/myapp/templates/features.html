@@ -1,0 +1,190 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Smart Health & Wellness Monitoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #00796b;
+            color: white;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #c7e5df;
+        }
+
+        .dashboard-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 40px;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            margin: 0 auto 40px;
+        }
+
+        .dashboard h1 {
+            font-size: 2.5rem;
+            color: #00796b;
+            margin-bottom: 40px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            padding: 30px;
+            align-items: center;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 20px;
+            border: 2px solid #00796b;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card h2 {
+            font-size: 1.5rem;
+            color: #004d40;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .feature-card a {
+            text-decoration: none;
+            color: white;
+            background-color: #00796b;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .feature-card a:hover {
+            background-color: #004d40;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #00796b;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">SmartHealth</div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'healthinsights' %}">Health Insights</a></li>
+                <li><a href="{% url 'wellnesstracking' %}">Wellness Tracking</a></li>
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="dashboard">
+        <h1>Welcome To Smart Features</h1>
+        <div class="features">
+            <div class="feature-card">
+                <h2>Wellness Tracking</h2>
+                <p>Welcome to the Wellness Transactions feature! This tool allows you to effortlessly track and manage
+                    your wellness-related expenses. Whether it’s for Diet, Medical, Fitness, or other categories, you
+                    can add, view, and search through all your transactions in one place.
+                    Monitor and manage your daily
+                    wellness activities effectively.</p>
+                <a href="{% url 'wellnesstracking' %}">Explore</a>
+            </div>
+            <div class="feature-card">
+                <h2>Health Insights</h2>
+                <p>Welcome to the Health Insights feature! This section provides you with a detailed overview of the
+                    current health status and resource availability in real time. You can monitor key health statistics
+                    such as the number of recovered patients, those admitted, and even track the number of fatalities.
+                    Additionally, you can check the availability of essential resources like doctors, beds, and
+                    ventilators to ensure timely access to healthcare. Access personalized health reports and actionable
+                    insights.</p>
+                <a href="{% url 'healthinsights' %}">View Insights</a>
+            </div>
+            <div class="feature-card" id="dash">
+                <h2>Dashboard</h2>
+                <p>Welcome to the Dashboard! This comprehensive feature helps you keep track of the most important
+                    aspects of healthcare management, including the total number of doctors, patients, and appointments.
+                    With a quick glance, you can stay informed about upcoming appointments, the status of patients, and
+                    the availability of healthcare professionals.
+                    Get a complete overview of your health and wellness progress.</p>
+                <a href="{% url 'dashboard' %}">Go to Dashboard</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2024 Smart Health & Wellness Monitoring System. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
