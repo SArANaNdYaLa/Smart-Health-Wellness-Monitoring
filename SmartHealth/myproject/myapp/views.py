@@ -22,7 +22,7 @@ def registration(request):
 
         try:
             # Open a connection and create a cursor once for both checking and inserting
-            conn = sql.connect(host="localhost", user="root", password="*21ht1A4342*", database="smarthealth")
+            conn = sql.connect(host="localhost", user="root", password="******", database="smarthealth")
             cursor = conn.cursor()
 
             # Check if user already exists in the database
@@ -136,7 +136,7 @@ def login(request):
     if request.method == "POST":
         # Connect to the database
         try:
-            conn = sql.connect(host="localhost", user="root", password="*21ht1A4342*", database="smarthealth")
+            conn = sql.connect(host="localhost", user="root", password="******", database="smarthealth")
             cursor = conn.cursor()
             
             # Get the data from the form
