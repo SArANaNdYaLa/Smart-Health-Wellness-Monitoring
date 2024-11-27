@@ -127,7 +127,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # Specify the database backend here
         'NAME': 'smarthealth',
         'USER': 'root',
-        'PASSWORD': '*21ht1A4342*',
+        'PASSWORD': '******',
         'HOST': 'localhost',  # or the database host
         'PORT': '3306',       # or the database port
     }
@@ -141,8 +141,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/features/'  # Redirect to features page after login
 
-# Fitbit API credentials
-"""FITBIT_CLIENT_ID = '23PZ55'
-FITBIT_CLIENT_SECRET = 'bd5f26fbcdb91dc8beb53530ff7228d4'
-FITBIT_REDIRECT_URI = 'http://localhost:8000/fitbit/callback/'
-"""
+
